@@ -40,7 +40,7 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'], 
 };
 
-app.use("/public/media", express.static('media'))
+app.use("/public/media", express.static('public/media'))
 app.use(cors(corsOptions))
 
 app.use(express.json())
