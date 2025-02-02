@@ -7,7 +7,7 @@ const UpgradesSchema = new Schema({
         required: true,
     },
     date: {
-        type: String,
+        type: Number,
         required: false,
     },
 }, {
@@ -15,5 +15,5 @@ const UpgradesSchema = new Schema({
 })
 
 
-const Upgrades = mongoose.model('media', UpgradesSchema)
+const Upgrades = mongoose.model('upgrades', UpgradesSchema)
 module.exports = Upgrades
