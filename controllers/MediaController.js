@@ -3,7 +3,7 @@ const Media = require("../models/MediaModel");
 async function getMedia(req, res) {
     const limit = req.query.limit;    
     const category = req.query.category || "Images";    
-    
+
     try {
         Media
         .find({category: category})
@@ -18,9 +18,7 @@ async function getMedia(req, res) {
     }
 }
 
-async function postMedia(req, res) {
-    console.log(req.file, req.body);
-    
+async function postMedia(req, res) {    
     try {
         if(!req.file) {
             return res.status(400).json({

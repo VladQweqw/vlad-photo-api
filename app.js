@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+
 const mongoose = require('mongoose');
 const express = require('express')
 
@@ -7,13 +10,12 @@ const upgradesRouter = require("./routes/UpgradesRoutes")
 
 const body_parser = require('body-parser')
 const cors = require('cors')
-const dbURI = "mongodb+srv://vladpoienariu:admin123@cluster.aptj5.mongodb.net/Photography?retryWrites=true&w=majority&appName=Cluster";
-
+const dbURI = process.env.DB_URI;
 
 
 const app = express()
-const PORT = 8098
-const domain = '192.168.1.69'
+const PORT = process.env.PORT
+const domain = process.env.DOMAIN
 
 mongoose.connect(dbURI)
 .then((result) => {
