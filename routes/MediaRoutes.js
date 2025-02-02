@@ -23,5 +23,9 @@ router.post('/', upload.single("media"), mediaController.postMedia);
 //get
 router.get('/', mediaController.getMedia);
 
+//delete
+router.delete('/', mediaController.removeMedia);
+
+
 
 module.exports = router;
