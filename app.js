@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-
 const mongoose = require('mongoose');
 const express = require('express')
 
@@ -12,7 +11,6 @@ const panoramaRouter = require("./routes/PanoramaRoute")
 const body_parser = require('body-parser')
 const cors = require('cors')
 const dbURI = process.env.DB_URI;
-
 
 const app = express()
 const PORT = process.env.PORT
@@ -29,27 +27,26 @@ mongoose.connect(dbURI)
     console.log(`Error while connecting to DB: ${err}`);
 })
 
-const allowedOrigins = [
-    `${domain}:3000`,
-];
-
 const corsOptions = {
-    origin: allowedOrigins,
-    credentials: true, 
-    optionsSuccessStatus: 200, 
+    origin: '*',  
     methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE', 
-    allowedHeaders: ['Content-Type', 'Authorization'], 
+    allowedHeaders: '*',
+    optionsSuccessStatus: 200, 
 };
+
+app.use(cors(corsOptions))
+
+
 
 // public folders
 app.use("/public/images", express.static('public/images'))
 app.use("/public/panoramas", express.static('public/panoramas'))
+app.use("/public/upgrades", express.static('public/upgrades'))
 
 
-app.use(cors(corsOptions))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); 
 
-app.use(express.json())
-app.use(body_parser.json())
 
 app.use("/image", ImageRouter);
 app.use("/panorama", panoramaRouter);

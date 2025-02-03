@@ -10,6 +10,10 @@ const UpgradesSchema = new Schema({
         type: Number,
         required: false,
     },
+    image_url: {
+        type: String,
+        required: false
+    }
 }, {
     timestamps: true
 })

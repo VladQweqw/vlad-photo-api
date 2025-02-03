@@ -14,6 +14,10 @@ async function getImage(req, res) {
     
     if(id) {
         return Image.find({_id: id}).then((result) => {
+            if(result.length == 1) {
+                return res.status(200).json(result[0])
+            }
+            
             return res.status(200).json(result)
         }).catch((e) => {
             return res.status(400).json({

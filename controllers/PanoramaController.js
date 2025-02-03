@@ -14,6 +14,9 @@ async function getPanoramas(req, res) {
     
     if(id) {
         return Panorama.find({_id: id}).then((result) => {
+            if(result.length == 1) {
+                return res.status(200).json(result[0])
+            }
             return res.status(200).json(result)
         }).catch((e) => {
             return res.status(400).json({
@@ -90,7 +93,7 @@ async function postPanorama(req, res) {
         })
         .catch((e) => {
             return res.status(400).json({
-                error: "Invalid"
+                error: "Invalid data"
             })
         })
 
