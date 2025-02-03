@@ -4,27 +4,27 @@ const router = Router();
 const multer = require("multer");
 const path = require("path");
 
-const mediaController = require("../controllers/MediaController")
+const ImageController = require("../controllers/ImageController")
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "public/media");
+        cb(null, "public/images");
     },
     filename: (req, file, cb) => {
-        cb(null, "Media_" + new Date().getTime() + path.extname(file.originalname));
+        cb(null, "Image_" + new Date().getTime() + path.extname(file.originalname));
     }
 })
 
 const upload = multer({storage: storage})
 
 //post
-router.post('/', upload.single("media"), mediaController.postMedia);
+router.post('/', upload.single("image"), ImageController.postImage);
 
 //get
-router.get('/', mediaController.getMedia);
+router.get('/', ImageController.getImage);
 
 //delete
-router.delete('/', mediaController.removeMedia);
+router.delete('/', ImageController.removeImage);
 
 
 

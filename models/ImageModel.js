@@ -1,12 +1,16 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const MediaScheme = new Schema({
+const ImageScheme = new Schema({
     title: {
         type: String,
         required: true,
     },
     preview_url: {
+        type: String,
+        required: false,
+    },
+    thumbnail: {
         type: String,
         required: false,
     },
@@ -30,12 +34,8 @@ const MediaScheme = new Schema({
     date: {
         type: Number,
     },
-    category: {
-        type: String,
-        required: true
-    },
 })
 
 
-const Media = mongoose.model('media', MediaScheme)
-module.exports = Media
+const Image = mongoose.model('images', ImageScheme)
+module.exports = Image

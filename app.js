@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 const express = require('express')
 
 // routes
-const mediaRouter = require("./routes/MediaRoutes")
+const ImageRouter = require("./routes/ImageRouter")
 const upgradesRouter = require("./routes/UpgradesRoutes")
+const panoramaRouter = require("./routes/PanoramaRoute")
 
 const body_parser = require('body-parser')
 const cors = require('cors')
@@ -40,11 +41,16 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'], 
 };
 
-app.use("/public/media", express.static('public/media'))
+// public folders
+app.use("/public/images", express.static('public/images'))
+app.use("/public/panoramas", express.static('public/panoramas'))
+
+
 app.use(cors(corsOptions))
 
 app.use(express.json())
 app.use(body_parser.json())
 
-app.use("/media", mediaRouter);
+app.use("/image", ImageRouter);
+app.use("/panorama", panoramaRouter);
 app.use("/upgrades", upgradesRouter);
