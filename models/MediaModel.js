@@ -6,7 +6,11 @@ const MediaScheme = new Schema({
         type: String,
         required: true,
     },
-    url: {
+    preview_url: {
+        type: String,
+        required: false,
+    },
+    download_url: {
         type: String,
         required: false,
     },

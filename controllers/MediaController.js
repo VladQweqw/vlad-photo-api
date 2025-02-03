@@ -2,6 +2,11 @@ const Media = require("../models/MediaModel");
 
 const fs = require('fs');
 const path = require("path")
+const sharp = require("sharp")
+
+function removeExt(name) {
+    return name.slice(0, name.lastIndexOf("."));
+}
 
 async function getMedia(req, res) {
     const limit = req.query.limit;    
@@ -40,8 +45,25 @@ async function postMedia(req, res) {
             })
         }
 
-        req.body.url = `/${req.file.destination}/${req.file.filename}`
+        const DOWNLOAD_URL = `/${req.file.destination}/${req.file.filename}`;
+        const PREVIEW_URL = `/${req.file.destination}/${removeExt(req.file.filename)}.webp`        
+        const BASE_PATH = path.dirname(__dirname);
+
+        sharp(BASE_PATH + DOWNLOAD_URL)
+        .webp({quality: 50})
+        .toFile(BASE_PATH + PREVIEW_URL, (err, info) => {            
+            if(err) {
+                console.log("Error converting image, try again later");
+            }else {
+                console.log("Succes converting image");
+            }
+        })
+
+        req.body.preview_url = PREVIEW_URL
+        req.body.download_url = DOWNLOAD_URL
+
         req.body.size = `${req.file.size}`
+        
 
         Media.create(req.body).then((result) => {
             return res.status(201).json(result);
